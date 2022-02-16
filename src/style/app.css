@@ -1,3 +1,20 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+html::-webkit-scrollbar {
+    width: 0 !important;
+}
+
+html {
+    overflow: -moz-scrollbars-none;
+}
+
+body {
+    background-image: linear-gradient(to top, #ff9a9e 0%, #fecfef 99%, #fecfef 100%);
+    @apply text-black min-h-[100vh]
+}
+
+.tab.tab-active {
+    @apply bg-pink-700;
+}
