@@ -8,7 +8,7 @@
 <div
 	in:fly={{ y: 200, duration: 300 }}
 	out:fly={{ y: 200, duration: 150 }}
-	class="w-[230px] h-[300px] shadow-md rounded-lg overflow-hidden bg-white hover:cursor-pointer"
+	class="w-[220px] h-[300px] shadow-md mx-auto my-4 rounded-lg overflow-hidden bg-white hover:cursor-pointer"
 	on:click={goto('/movie/' + movie.id)}
 >
 	<img
@@ -17,7 +17,7 @@
 		class="h-[45%] w-full"
 	/>
 	<div class="flex flex-col justify-between p-2 h-[55%]">
-		<div>
+		<div class="overflow-hidden">
 			<span class="text-sm font-bold">{movie.title}</span>
 			<p class="text-sm mt-2">{movie.overview.slice(0, 85) + '...'}</p>
 		</div>

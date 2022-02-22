@@ -18,3 +18,15 @@ body {
 .tab.tab-active {
     @apply bg-pink-700;
 }
+
+.bicon-xs {
+    @apply text-xs
+}
+
+.bicon-lg {
+    @apply text-lg
+}
+
+.bicon-xl {
+    @apply text-xl
+}

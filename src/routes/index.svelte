@@ -1,49 +1,20 @@
 <script>
 	import MovieCard from '../components/MovieCard.svelte';
 	import { onMount } from 'svelte';
+	import { page } from '$app/stores';
 
 	let movies = [];
 	let filteringOption = null;
+	let allGenres = [];
+	let genreIds = [];
 
 	let filterTabs = [
 		{
+			genre_id: null,
 			name: 'All',
-			isActive: false,
-			genre_id: null
-		},
-		{
-			name: 'Horror',
-			isActive: false,
-			genre_id: 27
-		},
-		{
-			name: 'Romance',
-			isActive: false,
-			genre_id: 10749
-		},
-		{
-			name: 'Sci-Fi',
-			isActive: false,
-			genre_id: 878
-		},
-		{
-			name: 'Thriller',
-			isActive: false,
-			genre_id: 53
-		},
-		{
-			name: 'Action',
-			isActive: false,
-			genre_id: 28
-		},
-		{
-			name: 'Comedy',
-			isActive: false,
-			genre_id: 35
+			isActive: true
 		}
 	];
-
-	console.log(filterTabs);
 
 	function tabIsActive(tab, i) {
 		filteringOption = tab.genre_id;
@@ -71,6 +42,28 @@
 		);
 		const jsonResponse = await res.json();
 		movies = await jsonResponse.results;
+		const genreRes = await fetch(
+			'https://api.themoviedb.org/3/genre/movie/list?api_key=aeae1288904d0de30a4bd9f68d9a6e2f&language=en-US'
+		);
+		allGenres = await genreRes.json();
+		allGenres = await allGenres.genres;
+		console.log(movies);
+		console.log('genres', allGenres);
+		await movies.forEach((movie) => {
+			genreIds.push(movie.genre_ids);
+		});
+		genreIds = genreIds.flat();
+		genreIds = [...new Set(genreIds)];
+		await genreIds.forEach((g) => {
+			// const interTabs = [];
+			allGenres.forEach((genre) => {
+				if (genre.id === g) {
+					// filterTabs.push({ id: g, name: genre.name, isActive: false });
+					filterTabs = [...filterTabs, { genre_id: g, name: genre.name, isActive: false }];
+				}
+			});
+		});
+		console.log(filterTabs);
 	});
 
 	$: filteredMovies = movies.filter((m) =>
@@ -79,12 +72,11 @@
 </script>
 
 <div>
-	<h1 class="text-center text-xl text-black">
-		This app will show the most popular shows of the moment in order to help you chose what you want
-		to watch and follow the latest out
-	</h1>
+	<h1 class="text-center text-xl text-black font-bold">Popular shows of the moment</h1>
 
-	<div class="tabs tabs-boxed mt-10 mx-auto flex flex-row justify-center w-[300px] md:w-[530px]">
+	<div
+		class="tabs tabs-boxed mt-10 mx-auto flex flex-row justify-center w-[300px] md:w-[513px] lg:w-[800px] xl:w-full"
+	>
 		{#each filterTabs as tab, i}
 			<!-- svelte-ignore a11y-missing-attribute -->
 			<a class:tab-active={tab.isActive === true} class="tab" on:click={() => tabIsActive(tab, i)}
@@ -94,9 +86,7 @@
 	</div>
 
 	{#if filteredMovies.length > 0}
-		<div
-			class="flex flex-col md:flex-row md:flex-wrap md:gap-x-4 md:justify-center items-center mt-10 gap-y-4"
-		>
+		<div class="md:grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 mt-10">
 			{#each filteredMovies as movie, i}
 				<MovieCard {movie} />
 			{/each}

@@ -7,6 +7,6 @@
 		<span class="text-white font-bold"><a href="#">MyMA</a></span>
 	</div>
 </nav>
-<div class="mt-10 px-4">
+<div class="mt-10 md:px-24 xl:px-48 pb-32">
 	<slot />
 </div>
