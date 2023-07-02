@@ -32,8 +32,6 @@
 				};
 			} else return t;
 		});
-
-		console.log(filterTabs);
 	}
 
 	onMount(async () => {
@@ -47,8 +45,6 @@
 		);
 		allGenres = await genreRes.json();
 		allGenres = await allGenres.genres;
-		console.log(movies);
-		console.log('genres', allGenres);
 		await movies.forEach((movie) => {
 			genreIds.push(movie.genre_ids);
 		});
@@ -63,7 +59,6 @@
 				}
 			});
 		});
-		console.log(filterTabs);
 	});
 
 	$: filteredMovies = movies.filter((m) =>
@@ -72,10 +67,12 @@
 </script>
 
 <div>
-	<h1 class="text-center text-xl text-black font-bold">Popular shows of the moment</h1>
+	<h1 class="text-center text-xl text-white font-bold w-[fit-content] mx-auto p-2 rounded">
+		Popular shows of the moment
+	</h1>
 
 	<div
-		class="tabs tabs-boxed mt-10 mx-auto flex flex-row justify-center w-[300px] md:w-[513px] lg:w-[800px] xl:w-full"
+		class="tabs tabs-boxed mt-10 mx-auto flex flex-row justify-center w-[fit-content] md:w-[fit-content] lg:w-[fit-content] xl:w-[fit-content]"
 	>
 		{#each filterTabs as tab, i}
 			<!-- svelte-ignore a11y-missing-attribute -->

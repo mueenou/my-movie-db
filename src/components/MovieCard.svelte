@@ -8,7 +8,7 @@
 <div
 	in:fly={{ y: 200, duration: 300 }}
 	out:fly={{ y: 200, duration: 150 }}
-	class="w-[220px] h-[300px] shadow-md mx-auto my-4 rounded-lg overflow-hidden bg-white hover:cursor-pointer"
+	class="w-[220px] h-[300px] shadow-md mx-auto my-4 rounded-lg overflow-hidden bg-white hover:cursor-pointer hover:-translate-y-2 duration-[400ms]"
 	on:click={goto('/movie/' + movie.id)}
 >
 	<img

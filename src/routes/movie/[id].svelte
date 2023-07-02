@@ -3,8 +3,6 @@
 	import { page } from '$app/stores';
 	import { fly } from 'svelte/transition';
 
-	console.log($page.params);
-
 	let movie = undefined;
 
 	onMount(async () => {
@@ -17,13 +15,14 @@
 		);
 		const moreResJson = moreRes.json();
 		movie.details = await moreResJson;
-
-		console.log(movie);
 	});
 </script>
 
 <div>
 	{#if movie != undefined}
+		<h1 class="text-center text-xl text-white w-[fit-content] mx-auto rounded">
+			More about: <span class="font-bold">{movie.title}</span>
+		</h1>
 		<div
 			in:fly={{ y: 200, duration: 300 }}
 			class="flex items-center h-auto lg:h-screen flex-wrap mx-auto my-32 lg:my-0"
@@ -41,6 +40,10 @@
 					/>
 
 					<h1 class="text-3xl font-bold pt-8 lg:pt-0">{movie.title}</h1>
+					<span
+						class="ring ring-black text-xl rounded-full p-1 font-bold float-right h-9 w-9 flex flex-row justify-center items-center"
+						>{movie.vote_average.toFixed(1)}</span
+					>
 					<div class="mx-auto lg:mx-0 w-4/5 pt-3 border-b-2 border-pink-500 opacity-25" />
 					{#if movie.details}
 						<p

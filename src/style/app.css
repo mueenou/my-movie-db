@@ -11,7 +11,8 @@ html {
 }
 
 body {
-    background-image: linear-gradient(to top, #ff9a9e 0%, #fecfef 99%, #fecfef 100%);
+    /* background-image: linear-gradient(to top, #ff9a9e 0%, #fecfef 99%, #fecfef 100%); */
+    background-color: rgb(243, 146, 178);
     @apply text-black min-h-[100vh]
 }
 
